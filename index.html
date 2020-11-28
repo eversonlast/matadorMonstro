@@ -1,0 +1,24 @@
+<meta charset="UTF-8">
+
+<script src="https://unpkg.com/vue"></script>
+<link rel="stylesheet" href="jogo.css">
+
+<div id="app">
+    <div class="vida">
+        <div class="vida-jogador">
+            <label for="barra-progresso">Jogador</label>
+            <div class="barra-progresso">
+                <div class="progresso" :style="{widht: jogador}"></div>
+            </div>
+        </div>
+        <div class="monstro">
+            <label for="barra-mostro">Monstro</label>
+            <div class="barra-monstro">
+                <div class="progresso-monstro"></div>
+            </div>
+        </div>  
+
+    </div>
+</div>
+
+<script src="app.js"></script>
