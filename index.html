@@ -1,24 +1,58 @@
-<meta charset="UTF-8">
-
-<script src="https://unpkg.com/vue"></script>
-<link rel="stylesheet" href="jogo.css">
-
-<div id="app">
-    <div class="vida">
-        <div class="vida-jogador">
-            <label for="barra-progresso">Jogador</label>
-            <div class="barra-progresso">
-                <div class="progresso" :style="{widht: jogador}"></div>
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Matador de Monstro</title>    
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="jogo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+</head>
+<body>    
+    <div id="app">
+        <template>
+            <div class="vida">
+                <div class="vida-jogador">
+                    <label for="barra-progresso">Jogador</label>
+                    <div class="barra">
+                        <span class="vida-numero">{{jogador}}</span>
+                        <div class="barra-progresso" >
+                            <div class="progresso" :class="{barraVermelha: jogador < 20}" :style="{width: jogador + '%'}"></div>
+                        </div>                
+                    </div>
+                </div>
+                <div class="monstro">
+                    <label for="barra-mostro">Monstro</label>
+                    <div class="barra">
+                        <span class="vida-numero">{{monstro}}</span>
+                        <div class="barra-monstro">
+                            <div class="progresso-monstro" :class="{barraVermelha: monstro < 20}" :style="{width: monstro + '%'}"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="monstro">
-            <label for="barra-mostro">Monstro</label>
-            <div class="barra-monstro">
-                <div class="progresso-monstro"></div>
+            <div class="botoes" v-show="iniciarJogo">
+                <button type="button" class="btn btn-primary btnIniciarJogo" @click="iniciarJogo = !iniciarJogo">Iniciar Jogo</button>
             </div>
-        </div>  
-
+            <div class="botoes" v-if="controle">
+                {{controle}}
+            </div>
+            <div class="botoes" v-else v-show="iniciarJogo== false">
+                <button type="button" class="btn btn-primary btnJogador" @click="ataqueSemEspecial">Atacar</button>
+                <button type="button" class="btn btn-warning mx-2 btnAtaqueEspecial" @click="ataqueEspecial">Ataque especial</button>    
+                <button type="button" class="btn btn-success mr-2 btnCurar" @click="curar">Curar</button>    
+                <button type="button" class="btn btn-danger btnTerminar" @click="btnDesistir">Desistir</button>
+            </div>
+            <div class="botoes" v-show="verificarControle">
+                <button type="button" class="btn btn-primary btnReload" @click="btnDesistir">Reiniciar</button>
+            </div>
+            <div class="log-vida">
+                <div class="log-final" v-for="ataque in ataques" :class="ataque.cls" >                
+                    {{ataque.text}} <br>            
+                </div>
+            </div>
+        </template>
     </div>
-</div>
-
-<script src="app.js"></script>
+    
+    <script src="app.js"></script>
+    
+</body>
+</html>
